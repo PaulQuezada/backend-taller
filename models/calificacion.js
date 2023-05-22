@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const calificacionSchema = new Schema({
     nota:Number,
-    calificador: mongoose.Types.ObjectId,
-    calificado:  mongoose.Types.ObjectId,
+    calificador:{ type: Schema.Types.ObjectId, ref: 'usuario' },
+    calificado:  { type: Schema.Types.ObjectId, ref: 'usuario' },
     comentario :String,
     visto: Boolean
 },{ versionKey: false });

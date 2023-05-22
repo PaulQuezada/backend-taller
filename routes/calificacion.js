@@ -29,5 +29,18 @@ router.post('/addcalificacion', async(req, res) => {
       res.json(err)
     });
   });
+  router.get('/getcalificacionbychofer/:id',async(req,res)=>{
+    console.log(req.params.id)
+    await  calificacionSchema.find({calificado:req.params.id}).populate({path:"calificador",select:["nombre","imagenperfil"]})
+    
+    .then((result) => {
+      console.log(result)
+      res.json(result)
+    })
+    .catch((err) => {
+      console.log(err)
+      res.json(err)
+    });
+  });
   
   module.exports = router;
