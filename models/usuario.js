@@ -8,6 +8,7 @@ const usuarioSchema = new Schema({
     actividad:String,
     imagenperfil:String,
     eschofer: Boolean,
+    contPanico: Number,
     vehiculo:{
         imagen:String,
         patente:String,
@@ -15,7 +16,7 @@ const usuarioSchema = new Schema({
         modelo:String
     },
     viajes: [{ type: Schema.Types.ObjectId, ref: 'Viaje' }],
-
+    
 },{ versionKey: false }
 );
 

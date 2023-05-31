@@ -17,7 +17,7 @@ const viajeSchema = new Schema({
     },
     choferid: mongoose.Types.ObjectId,
     haciautalca:Boolean,
-    pasajeros:[mongoose.Types.ObjectId],
+    pasajeros:[{ type: Schema.Types.ObjectId, ref: 'usuario' }],
     parada:[],
     fecha:String,
     horainicio: String,
@@ -28,7 +28,8 @@ const viajeSchema = new Schema({
         idemisor: mongoose.Types.ObjectId,
         texto: String,
         hora: String
-    }]
+    }],
+    
 },{ versionKey: false });
 
 const viaje = mongoose.model('viaje', viajeSchema);

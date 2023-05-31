@@ -11,7 +11,8 @@ const notificacionSchema = new Schema({
     destino: String,
     nombrepasajero: String,
     parada:[],
-    fecha:String
+    fecha:String,
+    visto:Boolean,
 },{ versionKey: false });
 const notificacion = mongoose.model('notificacion', notificacionSchema);
 
