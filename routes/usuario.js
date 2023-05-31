@@ -8,6 +8,9 @@ import usuarioSchema from '../models/usuario';
 
 router.post('/addusuario', async (req, res) => {
   const body = req.body;
+  console.log("--------------------")
+  console.log(body)
+  console.log("--------------------")
 
   const usuario = usuarioSchema(body)
   await usuario.save()
@@ -78,6 +81,26 @@ router.get('/getallusuarios', async (req, res) => {
 
 
 });
+router.put('/updatecontrausuario', async(req, res) => {
+  const body = req.body;
+  const userid = body.userid;
+  const contranueva = body.contranueva;
+  // Actualizar los dato
+  const resp = await usuarioSchema.updateOne (
+    {
+      _id : userid,
+
+
+    },
+    {
+
+      contrasena : contranueva
+      
+    }
+  ) 
+  console.log(resp)
+  
+});
 // Actualizar los datos de un usuario
 router.put('/updateusuario', async (req, res) => {
   const body = req.body;
@@ -86,7 +109,7 @@ router.put('/updateusuario', async (req, res) => {
   // Actualizar los dato
   const resp = await usuarioSchema.updateOne(
     {
-      _id: userid
+      _id : userid
     },
     {
       $push:
@@ -98,7 +121,6 @@ router.put('/updateusuario', async (req, res) => {
   console.log(resp)
 
 });
-
 router.put('/updatefotoperfil', async (req, res) => {
   const body = req.body;
   const userid = body.userid;
@@ -119,13 +141,34 @@ router.put('/updatefotoperfil', async (req, res) => {
   console.log(resp)
 });
 
-router.get('/getuserviajesbyid/:id', async (req, res) => {
-  const userID = req.params.id
-  console.log(req.params)
-  await usuarioSchema.findOne({
-    _id: userID
+router.put('/updatepanic', async (req, res) => {
 
-  })
+  const body = req.body;
+  const userid = body.userid;
+  const contPanico = body.contPanico;
+  console.log(body)
+  // Actualizar los dato
+  const resp = await usuarioSchema.updateOne(
+    {
+      _id: userid
+    },
+    {
+      $set:
+      {
+        contPanico: contPanico
+      }
+    }
+  )
+  console.log(resp)
+});
+
+router.get('/getuserviajesbyid/:id', async(req, res) => 
+  {
+    const userID = req.params.id
+    console.log(req.params)
+    await usuarioSchema.findOne({_id:userID
+     
+    })
     .then((result) => {
       console.log(result.viajes)
       res.json(result.viajes)
