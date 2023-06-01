@@ -9,6 +9,7 @@ const usuarioSchema = new Schema({
     imagenperfil:String,
     eschofer: Boolean,
     contPanico: Number,
+    numContacto:String,
     vehiculo:{
         imagen:String,
         patente:String,

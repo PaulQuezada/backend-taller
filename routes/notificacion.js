@@ -7,6 +7,7 @@ import notificacionSchema from '../models/notificacion';
 router.post('/addnotificacion', async (req, res) => {
   const body = req.body;
   const notificacion = notificacionSchema(body)
+  console.log(body)
   await notificacion.save()
     .then((result) => {
       res.json(result)
@@ -58,8 +59,8 @@ router.put('/cambioEstado', async (req, res) => {
         _id: notificacionId,
       },
       {
-          estado: estadoCambiar,
-          tipo: tipoCambiar, // Agrega el campo adicional aquí
+        estado: estadoCambiar,
+        tipo: tipoCambiar, // Agrega el campo adicional aquí
       }
     );
     res.status(200).json(resp);
@@ -81,7 +82,7 @@ router.put('/cambioTipo', async (req, res) => {
         _id: notificacionId,
       },
       {
-          tipo: tipoCambiar, // Agrega el campo adicional aquí
+        tipo: tipoCambiar, // Agrega el campo adicional aquí
       }
     );
     res.status(200).json(resp);
@@ -93,21 +94,48 @@ router.put('/cambioTipo', async (req, res) => {
 router.put('/cambioVisto', async (req, res) => {
   const body = req.body;
   const notificacionId = body.notificacionId;
+  const emisor_receptor = body.emisor_receptor;
   const vistoCambiar = body.visto; // Asegúrate de obtener el valor del campo adicional desde el cuerpo de la solicitud
   console.log(body)
-  // Actualizar el estado y el campo adicional
-  try {
-    const resp = await notificacionSchema.updateOne(
-      {
-        _id: notificacionId,
-      },
-      {
-          visto: vistoCambiar, // Agrega el campo adicional aquí
-      }
-    );
-    res.status(200).json(resp);
-  } catch (err) {
-    res.status(500).json({ message: 'Error al actualizar el estado y el campo adicional' });
+  if (emisor_receptor == "Emisor") {
+    // Emisor
+    // Actualizar el estado y el campo adicional
+    console.log("--------------------")
+    console.log("1")
+    
+    try {
+      const resp = await notificacionSchema.updateOne(
+        {
+          _id: notificacionId,
+        },
+        {
+          vistoemisor: vistoCambiar, // Agrega el campo adicional aquí
+        }
+      );
+      res.status(200).json(resp);
+    } catch (err) {
+      res.status(500).json({ message: 'Error al actualizar el estado y el campo adicional' });
+    }
+  } else if (emisor_receptor == "Receptor") {
+    // Receptor
+    // Actualizar el estado y el campo adicional
+    console.log("--------------------")
+    console.log("2")
+    try {
+      const resp = await notificacionSchema.updateOne(
+        {
+          _id: notificacionId,
+        },
+        {
+          vistoreceptor: vistoCambiar, // Agrega el campo adicional aquí
+        }
+      );
+      res.status(200).json(resp);
+    } catch (err) {
+      res.status(500).json({ message: 'Error al actualizar el estado y el campo adicional' });
+    }
   }
+  console.log(body)
+
 });
 module.exports = router;
