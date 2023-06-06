@@ -53,8 +53,7 @@ router.get('/getuserbyid/:id', async (req, res) => {
   console.log(req.params)
   await usuarioSchema.findOne({
     _id: userID
-
-  })
+  }).populate({path:"viajes"})
     .then((result) => {
       console.log(result)
       result.contraseña = ""
@@ -98,7 +97,7 @@ router.put('/updatecontrausuario', async(req, res) => {
       
     }
   ) 
-  console.log(resp)
+  
   
 });
 // Actualizar los datos de un usuario
@@ -121,6 +120,26 @@ router.put('/updateusuario', async (req, res) => {
   console.log(resp)
 
 });
+router.put('/updatenumcontacto', async (req, res) => {
+  const body = req.body;
+  const userid = body.userid;
+  const numero = body.numero;
+  console.log(body)
+  const resp = await usuarioSchema.updateOne(
+    {
+      _id: userid
+    },
+    {
+      $set:
+      {
+        numContacto: numero
+      }
+    }
+  )
+  res.send("Update ncontacto")
+});
+
+
 router.put('/updatefotoperfil', async (req, res) => {
   const body = req.body;
   const userid = body.userid;
@@ -140,6 +159,27 @@ router.put('/updatefotoperfil', async (req, res) => {
   )
   console.log(resp)
 });
+
+router.put('/updatePanico', async (req, res) => {
+  const body = req.body;
+  const userid = body.userid;
+  const panico = body.panico;
+  console.log(body)
+  // Actualizar los dato
+  const resp = await usuarioSchema.updateOne(
+    {
+      _id: userid
+    },
+    {
+      $set:
+      {
+        contPanico: panico
+      }
+    }
+  )
+  res.send("Update Panico")
+});
+
 
 router.put('/updatepanic', async (req, res) => {
 

@@ -16,7 +16,7 @@ const usuarioSchema = new Schema({
         marca:String,
         modelo:String
     },
-    viajes: [{ type: Schema.Types.ObjectId, ref: 'Viaje' }],
+    viajes: [{ type: Schema.Types.ObjectId, ref: 'viaje' }],
     
 },{ versionKey: false }
 );
