@@ -165,6 +165,24 @@ router.put('/updatefotoperfil', async (req, res) => {
   )
   console.log(resp)
 });
+router.put('/updatefotoauto', async (req, res) => {
+  const body = req.body;
+  const userid = body.userid;
+  const vehiculo = body.vehiculo;
+  console.log(body)
+  // Actualizar los dato
+  const resp = await usuarioSchema.updateOne(
+    {
+      _id: userid
+    },
+    {
+      $set: {
+        "vehiculo.imagen": vehiculo
+      }
+    }
+  )
+  res.send("Update fotoauto")
+});
 
 router.put('/updatePanico', async (req, res) => {
   const body = req.body;
