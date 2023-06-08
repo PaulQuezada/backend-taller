@@ -61,7 +61,7 @@ router.get('/getuserbyid/:id', async (req, res) => {
     })
     .catch((err) => {
       console.log(err)
-      res.json(err)
+      res.send(false)
     });
 
 }
@@ -96,7 +96,13 @@ router.put('/updatecontrausuario', async(req, res) => {
       contrasena : contranueva
       
     }
-  ) 
+  ) .then((result) => {
+    res.json(result)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.json(err)
+  });
   
   
 });
