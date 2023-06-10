@@ -78,13 +78,23 @@ router.put('/cambiarPasajeros', async (req, res) => {
   const body = req.body;
   const viajeid = body.viajeid;
   const cambiopasajeros = body.pasajeros;
-  console.log(body)
+  const cambioparada = body.parada;
+  console.log("updatepasajero",body)
   // Actualizar los datos
-  const resp = await viajeSchema.updateOne(
+  await viajeSchema.findOneAndUpdate(
     { _id: viajeid },
-    { $set: { pasajeros: cambiopasajeros } }
-  );
-  res.json(resp);
+    { $set: 
+      {
+         pasajeros: cambiopasajeros,
+         parada:cambioparada
+      }   
+    },{
+      new:true
+    }
+  ).then((resp)=>{
+    res.json(resp)
+  })
+  
 });
 
 
