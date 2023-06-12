@@ -89,9 +89,10 @@ router.put('/cambiarPasajeros', async (req, res) => {
          parada:cambioparada
       }   
     },{
-      new:true
+      new:true  
     }
-  ).then((resp)=>{
+  ).populate({path:"pasajeros",select:["nombre","imagenperfil"]})
+  .then((resp)=>{
     res.json(resp)
   })
   
