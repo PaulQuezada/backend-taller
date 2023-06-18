@@ -138,4 +138,53 @@ router.put('/cambioVisto', async (req, res) => {
   console.log(body)
 
 });
+
+// Cambio de visto de notificación
+router.put('/cambionotificacion', async (req, res) => {
+  const body = req.body;
+  const notificacionId = body.notificacionId;
+  const emisor_receptor = body.emisor_receptor;
+  const notificacion_cambiar = body.notificacion_cambiar; // Asegúrate de obtener el valor del campo adicional desde el cuerpo de la solicitud
+  console.log(body)
+  if (emisor_receptor == "Emisor") {
+    // Emisor
+    // Actualizar el estado y el campo adicional
+    console.log("--------------------")
+    console.log("1")
+    
+    try {
+      const resp = await notificacionSchema.updateOne(
+        {
+          _id: notificacionId,
+        },
+        {
+          notificacionemisor: notificacion_cambiar, // Agrega el campo adicional aquí
+        }
+      );
+      res.status(200).json(resp);
+    } catch (err) {
+      res.status(500).json({ message: 'Error al actualizar el estado y el campo adicional' });
+    }
+  } else if (emisor_receptor == "Receptor") {
+    // Receptor
+    // Actualizar el estado y el campo adicional
+    console.log("--------------------")
+    console.log("2")
+    try {
+      const resp = await notificacionSchema.updateOne(
+        {
+          _id: notificacionId,
+        },
+        {
+          notificacionreceptor: notificacion_cambiar, // Agrega el campo adicional aquí
+        }
+      );
+      res.status(200).json(resp);
+    } catch (err) {
+      res.status(500).json({ message: 'Error al actualizar el estado y el campo adicional' });
+    }
+  }
+  console.log(body)
+
+});
 module.exports = router;

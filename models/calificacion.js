@@ -6,7 +6,8 @@ const calificacionSchema = new Schema({
     calificador:{ type: Schema.Types.ObjectId, ref: 'usuario' },
     calificado:  { type: Schema.Types.ObjectId, ref: 'usuario' },
     comentario :String,
-    visto: Boolean
+    visto: Boolean,
+    fecha : String,
 },{ versionKey: false });
 
 const calificacion = mongoose.model('calificacion', calificacionSchema);

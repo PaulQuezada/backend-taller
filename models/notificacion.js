@@ -10,10 +10,15 @@ const notificacionSchema = new Schema({
     origen: String,
     destino: String,
     nombrepasajero: String,
-    parada:[],
+    parada: {
+        id:{ type: Schema.Types.ObjectId, ref: 'usuario' },
+        punto:[]
+    },
     fecha:String,
     vistoemisor:Boolean,
     vistoreceptor:Boolean,
+    notificacionemisor:Boolean, // Para mostrar los numeros de la noti
+    notificacionreceptor:Boolean,
 },{ versionKey: false });
 const notificacion = mongoose.model('notificacion', notificacionSchema);
 
